@@ -1,0 +1,8 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - SCAN_NAME="AWS-COMMUNTY-DAY-2"
+      - ls -lah
+      - python /usr/app/codeguru/command.py --source_path . --aws_region "us-east-1" --output_file_prefix codeguru-security-results --scan_name $SCAN_NAME
+      - cat codeguru-security-results.sarif.json
