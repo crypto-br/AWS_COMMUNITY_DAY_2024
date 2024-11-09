@@ -2,7 +2,10 @@ version: 0.2
 phases:
   build:
     commands:
-      - SCAN_NAME="AWS-COMMUNTY-DAY-2"
+      - SCAN_NAME="NOME_DO_SEU_SCAN"
       - ls -lah
       - python /usr/app/codeguru/command.py --source_path . --aws_region "us-east-1" --output_file_prefix codeguru-security-results --scan_name $SCAN_NAME
       - cat codeguru-security-results.sarif.json
+  post_build:
+    commands:
+      - aws lambda invoke --function-name NOME_DA_SUA_FUNCAO --payload {\"scanName\":\"NOME_DO_SEU_SCAN\"} --cli-binary-format raw-in-base64-out /dev/stdout
